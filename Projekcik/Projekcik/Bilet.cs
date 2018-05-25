@@ -8,13 +8,13 @@ namespace Projekcik
 {
     class Bilet : Rezerwacja
     {
-        // ma konstruktora po prostu
+        //  nie ma konstruktora po prostu
 
 
         private String NrBiletu;
         
         /// <summary>
-        /// Setter do numeru biletu,, będzie troche działał jak Konstruktor
+        /// Setter do numeru biletu,, będzie troche działał jak Konstruktor  ds
         /// </summary>
         /// <param name="numer"></param>
         public void SetNrBiletu(String numer)
