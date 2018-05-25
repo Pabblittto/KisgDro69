@@ -12,7 +12,7 @@ namespace Projekcik
 
 
         private String NrBiletu;
-
+        
         /// <summary>
         /// Setter do numeru biletu,, będzie troche działał jak Konstruktor
         /// </summary>
