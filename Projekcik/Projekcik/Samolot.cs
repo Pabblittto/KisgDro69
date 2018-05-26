@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Projekcik
 {
-    class Samolot
+    public class Samolot
     {
-        private String IDSamolotu;
+        private string IDSamolotu;
 
         private Boolean CzyDostepny;
 
@@ -18,7 +18,7 @@ namespace Projekcik
             CzyDostepny = true;
         }
 
-        public String GetIDSamolotu()
+        public string GetIDSamolotu()
         {
             return IDSamolotu;
         }

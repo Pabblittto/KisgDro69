@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace Projekcik
 {
-    class Rezerwacja
+    public class Rezerwacja
     {
         private Klient Pasazer;
 
-        private String NrRezerwacji;
+        private string NrRezerwacji;
         private int NrMiesca;
         private int CenaBiletu;
         private Boolean BiletVIP;
 
-        public Rezerwacja(String NrRezer,int NumerMiejs,int _Cena,Boolean Vip, Klient KtoRezerw)
+        public Rezerwacja(string NrRezer,int NumerMiejs,int _Cena,Boolean Vip, Klient KtoRezerw)
         {
             Pasazer = KtoRezerw;
             NrRezerwacji = NrRezer;
@@ -25,7 +25,7 @@ namespace Projekcik
         }
 
 
-        public String GetNrRezerwacji()
+        public string GetNrRezerwacji()
         {
             return NrRezerwacji;
         }

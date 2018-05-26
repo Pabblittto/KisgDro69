@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 namespace Projekcik
 {
-    class Lot
+    public class Lot
     {
-        private String IDLotu;
+        private string IDLotu;
 
         // private List<Rezerwacja> ListaRezerwacji;
 
         private Trasa Droga;
 
-        private int CasLotu;
-        private String GodzinaWylotu;
-        private String DataWylotu;
+        private int CzasLotu;
+        private string GodzinaWylotu;
+        private string DataWylotu;
 
 
-        public Lot(String ID, Trasa _Droga,String Wylot,String Data)
+        public Lot(string ID, Trasa _Droga,string Wylot,string Data)
         {
             IDLotu = ID;
             Droga = _Droga;
@@ -29,7 +29,7 @@ namespace Projekcik
 
 
 
-        public String GetIDLotu()
+        public string GetIDLotu()
         {
             return IDLotu;
         }

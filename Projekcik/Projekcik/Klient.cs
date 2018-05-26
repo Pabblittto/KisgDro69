@@ -6,11 +6,18 @@ using System.Threading.Tasks;
 
 namespace Projekcik
 {
-    abstract class Klient
+    public abstract class Klient
     {
-        private String IDKlienta;
+        private string IDKlienta;
 
-
+        public Klient(string ID)
+            {
+            IDKlienta=ID;
+            }
+        public GetIDKlienta()
+            {
+            return IDKlienta;
+            }
 
 
     }

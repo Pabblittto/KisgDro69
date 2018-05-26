@@ -6,23 +6,23 @@ using System.Threading.Tasks;
 
 namespace Projekcik
 {
-    class Bilet : Rezerwacja
+    public class Bilet : Rezerwacja
     {
         //  nie ma konstruktora po prostu
 
 
-        private String NrBiletu;
+        private string NrBiletu;
         
         /// <summary>
         /// Setter do numeru biletu,, będzie troche działał jak Konstruktor  ds
         /// </summary>
         /// <param name="numer"></param>
-        public void SetNrBiletu(String numer)
+        public void SetNrBiletu(string numer)
         {
             NrBiletu = numer;
         }
 
-        public String GetNrBiletu()
+        public string GetNrBiletu()
         {
             return NrBiletu;
         }

@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace Projekcik
 {
-    class Lotnisko
+   public class Lotnisko
     {
-        private String IDLotniska;
+        private string IDLotniska;
 
 
-        public Lotnisko(String ID)
+        public Lotnisko(string ID)
         {
             IDLotniska = ID;
         }
 
-        public String GetIDLotniska()
+        public string GetIDLotniska()
         {
             return IDLotniska;
         }

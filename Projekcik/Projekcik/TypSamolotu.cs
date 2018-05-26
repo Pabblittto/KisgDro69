@@ -6,28 +6,28 @@ using System.Threading.Tasks;
 
 namespace Projekcik
 {
-    class TypSamolotu
+     public class TypSamolotu
     {
-        public String NazwaModelu;
+        public string NazwaModelu;
 
         public int Zasieg;
         public int Predkosc;
         public int IloscMiejsc;
         public int IloscMiejscVIP;
 
-        List<Samolot> ListaSamolotow;
+        private LinkedList<Samolot> ListaSamolotow; //zmiana typu listy na linked bo jest szybsza w przegladaniu
 
-        public TypSamolotu(String Nazwa,int _Zasieg, int _Predkosc, int IlMiejsc, int IlMiejscVip)
+        public TypSamolotu(string Nazwa,int _Zasieg, int _Predkosc, int IlMiejsc, int IlMiejscVip)
         {
             NazwaModelu = Nazwa;
             Zasieg = _Zasieg;
             Predkosc = _Predkosc;
             IloscMiejsc = IlMiejsc;
             IloscMiejscVIP = IlMiejscVip;
-            ListaSamolotow = new List<Samolot>();
+            ListaSamolotow = new LinkedList<Samolot>();
         }
 
-        public String GetNazwaModelu()
+        public string GetNazwaModelu()
         {
             return NazwaModelu;
         }
@@ -51,8 +51,7 @@ namespace Projekcik
         {
             return Zasieg;
         }
-
-        public List<Samolot> GetListaSamolotow()
+        public LinkedList<Samolot> GetListaSamolotow()
         {
             return ListaSamolotow;
         }
@@ -63,18 +62,18 @@ namespace Projekcik
         /// </summary>
         /// <param name="Dodawany"></param>
         /// <returns></returns>
-        public Boolean DodajSamolot(Samolot Dodawany)
+        public Boolean DodajSamolot(string IDSamolotu)
         {
             if (ListaSamolotow.Count() != 0)
             {
                 foreach (Samolot Obiekt in ListaSamolotow)
                 {
-                    if (Obiekt.GetIDSamolotu() == Dodawany.GetIDSamolotu())
+                    if (Obiekt.GetIDSamolotu() == IDSamolotu)
                         return false;
                 }
             }
-
-            ListaSamolotow.Add(Dodawany);
+            //mala zmiana - lepiej jak w nizsszej metodzie sprawdzac tylko ID bo nowy samolot i tak bedzie mial takie same parametry a roznil sie tylko ID
+            ListaSamolotow.Add(new Samolot(IDSamolotu));
             return true;
         }
 
@@ -83,7 +82,7 @@ namespace Projekcik
         /// </summary>
         /// <param name="IDSamolotu"></param>
         /// <returns></returns>
-        public Boolean UsunSamolot(String IDSamolotu)
+        public Boolean UsunSamolot(string IDSamolotu)
         {
             if (ListaSamolotow.Count() != 0)
             {
@@ -91,7 +90,7 @@ namespace Projekcik
                 {
                     if (ListaSamolotow[i].GetIDSamolotu() == IDSamolotu)
                     {
-                        ListaSamolotow.Remove(ListaSamolotow[i]);
+                        ListaSamolotow.Remove(i);
                         return true;
                     }
                 }
