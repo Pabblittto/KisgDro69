@@ -199,5 +199,38 @@ namespace Projekcik
             }
 
         }
+        public void ZapisDoPliku()//generalnie zastosujemy serializacje zeby zapisywac calosc jeszcze doczytac musze czy to tak zadziala na jednym pliku ew jak to zrobic przy odczycie
+        {
+            try
+            {
+                using (Stream strumien = File.Open("dane.bin", FileMode.Create))
+                {
+                    BinaryFormatter bin = new BinaryFormatter();
+                    bin.Serialize(strumien, ListaLotnisk);
+                    bin.Serialize(strumien, ListaTypow);
+                    bin.Serialize(strumien, ListaTras);
+                    bin.Serialize(strumien, ListaLotow);
+                    bin.Serialize(strumien, ListaKlientow);
+                }
+            }
+            catch (IOException)
+            {
+                Console.WriteLine("Wystapil blad zapisu danych");
+            }
+        } 
+        public void OdczytZPliku()   // work in progress
+        {
+            using (Stream strumien = File.Open("dane.bin", FileMode.Open))
+            {
+                BinaryFormatter bin = new BinaryFormatter();
+
+                ListaLotnisk = LinkedList<Lotniska>bin.Deserialize(strumien);
+                ListaTypow = LinkedList <Typ> bin.Deserialize(strumien);
+                ListaTras = LinkedList <Trasa> bin.Deserialize(strumien);
+                ListaLot = LinkedList <Lot> bin.Deserialize(strumien);
+                ListaKlientow = LinkedList <Klient> bin.Deserialize(strumien);
+
+            }
+        }
     }
 }

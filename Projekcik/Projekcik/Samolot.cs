@@ -28,10 +28,11 @@ namespace Projekcik
             return CzyDostepny;
         }
 
-        public void SetCzyDostepny(Boolean stan)
+      /*  public void SetCzyDostepny(Boolean stan)
         {
             CzyDostepny = stan;
         }
+        */
 
         /// <summary>
         /// Funkcja prosta i może sie przydać zarówno do automatycznego wysyłania samolotów w powietrze jak 

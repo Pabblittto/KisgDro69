@@ -13,18 +13,20 @@ namespace Projekcik
         // private List<Rezerwacja> ListaRezerwacji;
 
         private Trasa Droga;
-
+        private Samolot Pojazd;
         private int CzasLotu;
         private string GodzinaWylotu;
         private string DataWylotu;
 
 
-        public Lot(string ID, Trasa _Droga,string Wylot,string Data)
+        public Lot(string ID, Trasa _Droga,string Wylot,string Data,Samolot Uzyty)
         {
             IDLotu = ID;
             Droga = _Droga;
             GodzinaWylotu = Wylot;
             DataWylotu = Data;
+            Pojazd=Uzyty;
+           
         }
 
 
@@ -33,8 +35,18 @@ namespace Projekcik
         {
             return IDLotu;
         }
-
-
+           public Trasa GetDroga()
+        {
+            return Droga;
+        }
+           public string GetGodzina()
+        {
+            return GodzinaWylotu;
+        }
+           public string GetData()
+        {
+            return Data;
+        }
 
 
     }
