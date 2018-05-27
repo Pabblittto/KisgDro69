@@ -45,7 +45,7 @@ namespace Projekcik
         }
            public string GetData()
         {
-            return Data;
+            return DataWylotu;
         }
 
 

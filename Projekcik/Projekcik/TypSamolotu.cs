@@ -15,7 +15,7 @@ namespace Projekcik
         public int IloscMiejsc;
         public int IloscMiejscVIP;
 
-        private LinkedList<Samolot> ListaSamolotow; //zmiana typu listy na linked bo jest szybsza w przegladaniu
+        private List<Samolot> ListaSamolotow; //zmiana typu listy na linked bo jest szybsza w przegladaniu
 
         public TypSamolotu(string Nazwa,int _Zasieg, int _Predkosc, int IlMiejsc, int IlMiejscVip)
         {
@@ -24,7 +24,7 @@ namespace Projekcik
             Predkosc = _Predkosc;
             IloscMiejsc = IlMiejsc;
             IloscMiejscVIP = IlMiejscVip;
-            ListaSamolotow = new LinkedList<Samolot>();
+            ListaSamolotow = new List<Samolot>();
         }
 
         public string GetNazwaModelu()
@@ -51,7 +51,7 @@ namespace Projekcik
         {
             return Zasieg;
         }
-        public LinkedList<Samolot> GetListaSamolotow()
+        public List<Samolot> GetListaSamolotow()
         {
             return ListaSamolotow;
         }
@@ -90,7 +90,8 @@ namespace Projekcik
                 {
                     if (ListaSamolotow[i].GetIDSamolotu() == IDSamolotu)
                     {
-                        ListaSamolotow.Remove(i);
+                        ListaSamolotow.Remove(ListaSamolotow[i]);
+
                         return true;
                     }
                 }

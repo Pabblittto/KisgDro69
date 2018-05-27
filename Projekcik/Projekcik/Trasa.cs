@@ -31,7 +31,7 @@ namespace Projekcik
 
         public string GetIDTrasy()
         {
-            return IDtrasy;
+            return IDTrasy;
         }
 
         
