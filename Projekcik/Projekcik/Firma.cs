@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Projekcik
 {
-    public static class Firma  //klasa statyczna bo bedzie tylko jedna firma
+    public class Firma  //klasa statyczna bo bedzie tylko jedna firma
     {
-        private LinkedList<Lotnisko> ListaLotnisk=new LinkedList<Lotnisko>();
-        private LinkedList<TypSamolotu> ListaTypow=new LinkedList<TypSamolotu>();
-        private LinkedList<Trasa> ListaTras=new LinkedList<Trasa>();
-        private LinkedList<Lot> ListaLotow=new LinkedList<Lot>();
-        private LinkedList<Klient> ListaKlientow=new LinkedList<Klient>();
+        private List<Lotnisko> ListaLotnisk=new List<Lotnisko>();
+        private List<TypSamolotu> ListaTypow=new List<TypSamolotu>();
+        private List<Trasa> ListaTras=new List<Trasa>();
+        private List<Lot> ListaLotow=new List<Lot>();
+        private List<Klient> ListaKlientow=new List<Klient>();
         //szybka notka jeszcze sprobuej ogarnac czy nie da sie jakos tych metod sprowadzic do takiej co by pobierala tylko parametry zeby nie bylo tego samego tysiac razy
         public Boolean DodajTyp(string Nazwa, int _Zasieg, int _Predkosc, int IlMiejsc, int IlMiejscVip)
         {
@@ -36,7 +36,7 @@ namespace Projekcik
                 {
                     if (ListaTypow[i].GetNazwaModelu() == NazwaTypu)
                     {
-                        ListaTypow.Remove(i);  //nie jestem pewien czy remove czy delete wiec zostanie na razie remove. jeszcze ogarne
+                        ListaTypow.Remove(ListaTypow[i]);  //nie jestem pewien czy remove czy delete wiec zostanie na razie remove. jeszcze ogarne
                         return true;
                     }
                 }
@@ -224,11 +224,11 @@ namespace Projekcik
             {
                 BinaryFormatter bin = new BinaryFormatter();
 
-                ListaLotnisk = LinkedList<Lotniska>bin.Deserialize(strumien);
-                ListaTypow = LinkedList <Typ> bin.Deserialize(strumien);
-                ListaTras = LinkedList <Trasa> bin.Deserialize(strumien);
-                ListaLot = LinkedList <Lot> bin.Deserialize(strumien);
-                ListaKlientow = LinkedList <Klient> bin.Deserialize(strumien);
+                ListaLotnisk = List<Lotniska> bin.Deserialize(strumien);
+                ListaTypow = List<Typ> bin.Deserialize(strumien);
+                ListaTras = List<Trasa> bin.Deserialize(strumien);
+                ListaLot = List<Lot> bin.Deserialize(strumien);
+                ListaKlientow = List<Klient> bin.Deserialize(strumien);
 
             }
         }
