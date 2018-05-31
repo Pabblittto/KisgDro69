@@ -9,9 +9,8 @@ namespace Projekcik
     public class Posrednik : Klient
     {
         private string Nazwa;
-        public Posrednik(string nazwa,string ID)
+        public Posrednik(string nazwa,string ID) :base(ID)
         {
-            base(ID);
             this.Nazwa = nazwa;
         }
         public string GetNazwa()

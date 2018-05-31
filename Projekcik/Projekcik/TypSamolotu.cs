@@ -15,7 +15,7 @@ namespace Projekcik
         public int IloscMiejsc;
         public int IloscMiejscVIP;
 
-        private List<Samolot> ListaSamolotow; //zmiana typu listy na linked bo jest szybsza w przegladaniu
+        private List<Samolot> ListaSamolotow; 
 
         public TypSamolotu(string Nazwa,int _Zasieg, int _Predkosc, int IlMiejsc, int IlMiejscVip)
         {
@@ -78,7 +78,8 @@ namespace Projekcik
         }
 
         /// <summary>
-        /// Funkcja usuwa z listy samoolot który ma dane id
+        /// Funkcja usuwa z listy samoolot który ma dane id, jeżeli dany samolot istnieje na liście - zwraca true
+        /// w przeciwnym wypadku zwraca false
         /// </summary>
         /// <param name="IDSamolotu"></param>
         /// <returns></returns>

@@ -10,6 +10,10 @@ namespace Projekcik
     {
         static void Main(string[] args)
         {
+
+
+
+
         }
     }
 }

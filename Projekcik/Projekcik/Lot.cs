@@ -10,23 +10,23 @@ namespace Projekcik
     {
         private string IDLotu;
 
-        // private List<Rezerwacja> ListaRezerwacji;
+        // private List<Rezerwacja> ListaRezerwacji; // jeszcze nie wiem jak ta lista ma działać
+        private String IDSamolotu;// id konkretnego zamolotu, który obsługuje lot 
 
         private Trasa Droga;
-        private Samolot Pojazd;
+        private TypSamolotu Pojazd;// typ samolotu, ponieważ on przechowuje prekość, ładowność itd.
         private int CzasLotu;
         private string GodzinaWylotu;
         private string DataWylotu;
 
 
-        public Lot(string ID, Trasa _Droga,string Wylot,string Data,Samolot Uzyty)
+        public Lot(string ID, Trasa _Droga,string Wylot,string Data)
         {
             IDLotu = ID;
             Droga = _Droga;
             GodzinaWylotu = Wylot;
             DataWylotu = Data;
-            Pojazd=Uzyty;
-           
+
         }
 
 
@@ -47,6 +47,9 @@ namespace Projekcik
         {
             return DataWylotu;
         }
+
+
+
 
 
     }

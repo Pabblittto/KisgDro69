@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Projekcik
 {
+    /// <summary>
+    /// Trasa to obiekt przechowyjący dwa lotniska, jest to po prostu droga
+    /// </summary>
     public class Trasa
     {
         private Lotnisko Lotnisko1;
@@ -14,7 +17,7 @@ namespace Projekcik
         private int Odleglosc;
 
         private string IDTrasy;
-        //bez sensu pobierac w konstruktorze ID skoro i tak w get id zwracasz cos innego
+        
         public Trasa(Lotnisko Lot1, Lotnisko Lot2, int odleg)
         {
             IDTrasy = Lotnisko1.GetIDLotniska()+'-'+Lotnisko2.GetIDLotniska();

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Projekcik
 {
+    /*
     public class Firma  //klasa statyczna bo bedzie tylko jedna firma
     {
         private List<Lotnisko> ListaLotnisk=new List<Lotnisko>();
@@ -233,4 +234,5 @@ namespace Projekcik
             }
         }
     }
+    */
 }
