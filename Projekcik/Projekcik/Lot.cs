@@ -8,22 +8,23 @@ namespace Projekcik
 {
     public class Lot
     {
-        private string IDLotu;
-        
+         private string IDLotu;
+         private string IDSamolotu;// id konkretnego zamolotu, który obsługuje lot 
 
-        // private List<Rezerwacja> ListaRezerwacji; // jeszcze nie wiem jak ta lista ma działać
-        private string IDSamolotu;// id konkretnego zamolotu, który obsługuje lot 
+         private List<Rezerwacja> ListaRezerwacji; // lista rezerwacji określa również liste/liczbe klientów lecących tym samolotem
+       
 
         private Trasa Droga;
         private TypSamolotu Pojazd;// typ samolotu, ponieważ on przechowuje prekość, ładowność itd.
         private TimeSpan CzasLotu; //  ten czas jest liczony i wklepywany przez funkcje
-       
         private DateTime DataGodzinaWylotu;
 
+        
 
 
         public Lot(string ID, Trasa _Droga,int RokWylot,int MiesWyl,int DzienWyl, int GodzWyl, int MinWyl)
         {
+            ListaRezerwacji = new List<Rezerwacja>();
             IDLotu = ID;
             Droga = _Droga;
             DataGodzinaWylotu = new DateTime(RokWylot, MiesWyl, DzienWyl, GodzWyl, MinWyl,0);//ostatnia liczna to sekundy- nieistotna wartość w programie
@@ -36,10 +37,11 @@ namespace Projekcik
         /// </summary>
         public Lot(Lot IstniejącyLot,TimeSpan OjakiCZasPrzesuniety, String _IDLotu)
         {
+            ListaRezerwacji = new List<Rezerwacja>();
             IDLotu = _IDLotu;
             Droga = IstniejącyLot.GetDroga();
             DataGodzinaWylotu = IstniejącyLot.GetDataWylDT();
-            DataGodzinaWylotu.Add(OjakiCZasPrzesuniety);
+             DataGodzinaWylotu= DataGodzinaWylotu.Add(OjakiCZasPrzesuniety);
             Pojazd = null;
             CzasLotu = new TimeSpan(0, 0, 0);
 
@@ -66,6 +68,52 @@ namespace Projekcik
             }
             else
                 return false;
+        }
+
+
+        public int GetIloscMiejscWolnychZwyklych()
+        {
+            if (Pojazd != null)
+            {
+                if (ListaRezerwacji.Count() != 0)
+                {
+                    int liczba = 0;
+                    foreach (Rezerwacja Objekt in ListaRezerwacji)
+                    {
+                        if (Objekt.CzyVIP() == false)
+                            liczba++;
+                    }
+
+                    return Pojazd.GetIloscMiejsc() - liczba;
+                }
+                else
+                    return Pojazd.GetIloscMiejsc();
+            }
+            else
+                throw new Wyjatek("Nie został dodany samolot obsłudujący ten lot!!");// niech uzytkownik wypełni pole samolotu!! niech w ekstrymalnych przypadkach program usuwa                                                                           // dany lot żebby problemy się nie robiły
+        }
+
+
+        public int GetIloscMiejscWolnychVip()
+        {
+            if (Pojazd != null)
+            {
+                if (ListaRezerwacji.Count() != 0)
+                {
+                    int liczba = 0;
+                    foreach (Rezerwacja Objekt in ListaRezerwacji)
+                    {
+                        if (Objekt.CzyVIP() == true)
+                            liczba++;
+                    }
+
+                    return Pojazd.GetIloscMiejscVip() - liczba;
+                }
+                else
+                    return Pojazd.GetIloscMiejscVip();
+            }
+            else
+                throw new Wyjatek("Nie został dodany samolot obsłudujący ten lot!!");                                                                         // dany lot żebby problemy się nie robiły
         }
 
         public string GetIDLotu()
@@ -110,7 +158,7 @@ namespace Projekcik
                         return Obiekt;
                 }
             }
-            throw new Wyjątek("Nie ma Samolotu na liście typów !!");// bardzo specyficzny wyjątek , ktoś usuną samolot, który obsługiwał tą trasę co powinno być nie możliwe-
+            throw new Wyjatek("Nie ma Samolotu na liście typów !!");// bardzo specyficzny wyjątek , ktoś usuną samolot, który obsługiwał tą trasę co powinno być nie możliwe-
                                                                     // w catchu proponuje napisać krótką funkcję zmieniającą pole "Pojazd" na null!!!-Ważne
         }
 
@@ -123,10 +171,15 @@ namespace Projekcik
                 return cont.ToString();
             }
             else
-                throw new Wyjątek("Nie został dodany samolot obsłudujący lot!!");// w cathu jakiś komunikat dla uzytkownika żeby dodał samolot-Wazne
+                throw new Wyjatek("Nie został dodany samolot obsłudujący ten lot!!");// w cathu jakiś komunikat dla uzytkownika żeby dodał samolot-Wazne
         }
 
+        public Boolean Rezerwuj()
+        {
 
+
+
+        }
 
 
 

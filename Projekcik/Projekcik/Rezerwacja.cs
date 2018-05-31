@@ -30,6 +30,10 @@ namespace Projekcik
             return NrRezerwacji;
         }
 
+        public Boolean CzyVIP()
+        {
+            return BiletVIP;
+        }
 
 
 

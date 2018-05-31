@@ -8,12 +8,12 @@ namespace Projekcik
 {
      public class TypSamolotu
     {
-        public string NazwaModelu;
+        private string NazwaModelu;
 
-        public int Zasieg;// podawana w km
-        public int Predkosc;// prędkośc podawana w km/h
-        public int IloscMiejsc;
-        public int IloscMiejscVIP;
+        private int Zasieg;// podawana w km
+        private int Predkosc;// prędkośc podawana w km/h
+        private int IloscMiejsc;
+        private int IloscMiejscVIP;
 
         private List<Samolot> ListaSamolotow; 
 
@@ -114,7 +114,7 @@ namespace Projekcik
                 if (Obiekt.GetIDSamolotu() == IDszukanegoSamolotu)
                     return Obiekt;
             }
-            throw new Wyjątek("Nie ma takiego Samolotu o podanym ID na liście!! ");// niech użytkownik wpisze te ID jeszcze raz, jeżeli ma możliwość wgl
+            throw new Wyjatek("Nie ma takiego Samolotu o podanym ID na liście!! ");// niech użytkownik wpisze te ID jeszcze raz, jeżeli ma możliwość wgl
         }
         // jeżeli funkcja będzie sprawiała problemy można ją wywalić :/
 
