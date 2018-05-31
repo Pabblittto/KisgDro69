@@ -10,8 +10,8 @@ namespace Projekcik
     {
         public string NazwaModelu;
 
-        public int Zasieg;
-        public int Predkosc;
+        public int Zasieg;// podawana w km
+        public int Predkosc;// prędkośc podawana w km/h
         public int IloscMiejsc;
         public int IloscMiejscVIP;
 
@@ -100,6 +100,23 @@ namespace Projekcik
             return false;
         }
 
+        /// <summary>
+        /// funkcja zwraca obiekt Samolotu o podanym id - funkcja może się przydac żeby sprawdzić czy 
+        /// dany samolot jest wolny, zwraca nulla jeżeli tego id nie ma na liście 
+        /// </summary>
+        /// <param name="IDszukanego"></param>
+        /// <param name=""></param>
+        /// <returns></returns>
+        public Samolot GetSAmolotOID(string IDszukanegoSamolotu)
+        {
+            foreach (Samolot Obiekt in ListaSamolotow)
+            {
+                if (Obiekt.GetIDSamolotu() == IDszukanegoSamolotu)
+                    return Obiekt;
+            }
+            throw new Wyjątek("Nie ma takiego Samolotu o podanym ID na liście!! ");// niech użytkownik wpisze te ID jeszcze raz, jeżeli ma możliwość wgl
+        }
+        // jeżeli funkcja będzie sprawiała problemy można ją wywalić :/
 
     }
 }

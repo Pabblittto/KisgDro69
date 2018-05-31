@@ -14,7 +14,7 @@ namespace Projekcik
         private Lotnisko Lotnisko1;
         private Lotnisko Lotnisko2;
 
-        private int Odleglosc;
+        private int Odleglosc;// podawana w km
 
         private string IDTrasy;
         

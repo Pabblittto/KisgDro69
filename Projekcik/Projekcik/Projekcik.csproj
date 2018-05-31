@@ -54,6 +54,7 @@
     <Compile Include="Samolot.cs" />
     <Compile Include="Trasa.cs" />
     <Compile Include="TypSamolotu.cs" />
+    <Compile Include="Wyjątek.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
