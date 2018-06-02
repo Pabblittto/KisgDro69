@@ -20,7 +20,7 @@ namespace Projekcik
         
         public Trasa(Lotnisko Lot1, Lotnisko Lot2, int odleg)
         {
-            IDTrasy = Lotnisko1.GetIDLotniska()+'-'+Lotnisko2.GetIDLotniska();
+            IDTrasy = Lot1.GetIDLotniska()+"-"+Lot2.GetIDLotniska();
             Lotnisko1 = Lot1;
             Lotnisko2 = Lot2;
             Odleglosc = odleg;

@@ -6,19 +6,17 @@ using System.Threading.Tasks;
 
 namespace Projekcik
 {
-    public abstract class Klient
+    public abstract class Klient : KlasaID
     {
-        private string IDKlienta;
+
         private List<RezerwcjaBilet> ListaBiletowRezerwacji;// lista biletów i rezerwacji
 
         public Klient(string ID)
             {
-            IDKlienta=ID;
+            ListaBiletowRezerwacji = new List<RezerwcjaBilet>();
+            SetID(ID);
             }
-        public string GetIDKlienta()
-            {
-            return IDKlienta;
-            }
+
 
         public List<RezerwcjaBilet> GetListaBiletowRezerwacji()
         {
