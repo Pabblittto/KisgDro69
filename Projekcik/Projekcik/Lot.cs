@@ -11,7 +11,7 @@ namespace Projekcik
          private string IDLotu;
          private string IDSamolotu;// id konkretnego zamolotu, który obsługuje lot 
 
-         private List<Rezerwacja> ListaRezerwacji; // lista rezerwacji określa również liste/liczbe klientów lecących tym samolotem
+         private List<RezerwcjaBilet> ListaRezerwacji; // lista rezerwacji określa również liste/liczbe klientów lecących tym samolotem
        
 
         private Trasa Droga;
@@ -24,7 +24,7 @@ namespace Projekcik
 
         public Lot(string ID, Trasa _Droga,int RokWylot,int MiesWyl,int DzienWyl, int GodzWyl, int MinWyl)
         {
-            ListaRezerwacji = new List<Rezerwacja>();
+            ListaRezerwacji = new List<RezerwcjaBilet>();
             IDLotu = ID;
             Droga = _Droga;
             DataGodzinaWylotu = new DateTime(RokWylot, MiesWyl, DzienWyl, GodzWyl, MinWyl,0);//ostatnia liczna to sekundy- nieistotna wartość w programie
@@ -37,7 +37,7 @@ namespace Projekcik
         /// </summary>
         public Lot(Lot IstniejącyLot,TimeSpan OjakiCZasPrzesuniety, String _IDLotu)
         {
-            ListaRezerwacji = new List<Rezerwacja>();
+            ListaRezerwacji = new List<RezerwcjaBilet>();
             IDLotu = _IDLotu;
             Droga = IstniejącyLot.GetDroga();
             DataGodzinaWylotu = IstniejącyLot.GetDataWylDT();
@@ -78,7 +78,7 @@ namespace Projekcik
                 if (ListaRezerwacji.Count() != 0)
                 {
                     int liczba = 0;
-                    foreach (Rezerwacja Objekt in ListaRezerwacji)
+                    foreach (RezerwcjaBilet Objekt in ListaRezerwacji)
                     {
                         if (Objekt.CzyVIP() == false)
                             liczba++;
@@ -90,7 +90,7 @@ namespace Projekcik
                     return Pojazd.GetIloscMiejsc();
             }
             else
-                throw new Wyjatek("Nie został dodany samolot obsłudujący ten lot!!");// niech uzytkownik wypełni pole samolotu!! niech w ekstrymalnych przypadkach program usuwa                                                                           // dany lot żebby problemy się nie robiły
+                throw new Wyjatek("Nie został dodany samolot obsłudujący ten lot, lub został!!");// niech uzytkownik wypełni pole samolotu!! niech w ekstrymalnych przypadkach program usuwa                                                                           // dany lot żebby problemy się nie robiły
         }
 
 
@@ -101,7 +101,7 @@ namespace Projekcik
                 if (ListaRezerwacji.Count() != 0)
                 {
                     int liczba = 0;
-                    foreach (Rezerwacja Objekt in ListaRezerwacji)
+                    foreach (RezerwcjaBilet Objekt in ListaRezerwacji)
                     {
                         if (Objekt.CzyVIP() == true)
                             liczba++;
@@ -113,7 +113,7 @@ namespace Projekcik
                     return Pojazd.GetIloscMiejscVip();
             }
             else
-                throw new Wyjatek("Nie został dodany samolot obsłudujący ten lot!!");                                                                         // dany lot żebby problemy się nie robiły
+                throw new Wyjatek("Nie został dodany samolot obsłudujący ten lot, lub został on usunięty!!");                                                                         // dany lot żebby problemy się nie robiły
         }
 
         public string GetIDLotu()
@@ -174,14 +174,20 @@ namespace Projekcik
                 throw new Wyjatek("Nie został dodany samolot obsłudujący ten lot!!");// w cathu jakiś komunikat dla uzytkownika żeby dodał samolot-Wazne
         }
 
-        public Boolean Rezerwuj()
+        /// <summary>
+        /// Funkcja dodająca rezerwacje na dany lot dla danej osoby, CyToKupno określa czy klient rezerwuje czy kupuje od razu bilet
+        /// </summary>
+        /// <param name="Obiekt"></param>
+        /// <param name="CzyVIP"></param>
+        /// <returns></returns>
+        public void RezerwujKupBilet(Klient Obiekt,Boolean CzyVIP, Boolean CzyToKupno)
         {
 
-
+            // TRZEBA NAPISAĆ DODAWANIE REZERWACJI
 
         }
 
-
+        // TRZEBA NAPISAĆ ANULOWYWANIE REZERWACJI !!!
 
     }
 }

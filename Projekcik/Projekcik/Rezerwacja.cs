@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Projekcik
 {
-    public class Rezerwacja
+    /// <summary>
+    /// Klasa która jednocześnie jest rezerwacją i biletem
+    /// </summary>
+    public class RezerwcjaBilet
     {
         private Klient Pasazer;
 
@@ -14,14 +17,20 @@ namespace Projekcik
         private int NrMiesca;
         private int CenaBiletu;
         private Boolean BiletVIP;
+        private Boolean CzyKupionyBilet;
 
-        public Rezerwacja(string NrRezer,int NumerMiejs,int _Cena,Boolean Vip, Klient KtoRezerw)
+        private DateTime DataWygasniecia;
+
+        // ostatni element w konstruktorze decyduje obiket stajie sie od razu biletem
+        public RezerwcjaBilet(string NrRezer,int NumerMiejs,int _Cena,Boolean Vip, Klient KtoRezerw,DateTime Datastworzenia,Boolean _CzyKupionyBilet )
         {
             Pasazer = KtoRezerw;
             NrRezerwacji = NrRezer;
             NrMiesca = NumerMiejs;
             CenaBiletu = _Cena;
             BiletVIP = Vip;
+            DataWygasniecia = Datastworzenia.Add(new TimeSpan(7, 0, 0, 0));// czas rezerwacji , rezerwacje można zrobić tylko na 7 dni                                                        // jeżeli data wygaśniećia bedzie się równać dacie w programie to rezerwacja jest usuwana z listy rezerwacji
+            CzyKupionyBilet = _CzyKupionyBilet;
         }
 
 
@@ -34,6 +43,43 @@ namespace Projekcik
         {
             return BiletVIP;
         }
+
+        /// <summary>
+        /// Sprawia że rezerwacja staje się biletem i data wygaśnięcia już nie obowiązuje
+        /// </summary>
+        public void WykupRezerwacje()
+        {
+            CzyKupionyBilet = true;
+        }
+
+        /// <summary>
+        /// Może się przyda ta funkcja , nie wiem , zwraca czy dany obiekt jest rezerwacją czy biletem
+        /// </summary>
+        /// <returns></returns>
+        public Boolean CzyJestToBilet()
+        {
+            return CzyKupionyBilet;
+        }
+
+        /// <summary>
+        /// Funkcja zwracająca czy data wygaścnięcia mineła czy nie, zwraca true jeżeli rezerwacja wygasła.
+        /// false- nie wygasła jeszcze- przyda się jak trzeba wywalac rezerwacje po czasie wygaśnięcia
+        /// </summary>
+        /// <param name="DatawProgramie">Wirtualna data w programie</param>
+        /// <returns></returns>
+        public Boolean CzyWygaslo(DateTime DataWProgramie)
+        {
+            if (CzyKupionyBilet == false)
+            {
+                if (DataWygasniecia.CompareTo(DataWProgramie) <= 0)
+                    return true;
+                else
+                    return false;
+            }
+            else
+               return false;
+        }
+
 
 
 

@@ -6,9 +6,14 @@ using System.Threading.Tasks;
 
 namespace Projekcik
 {
-    /*
-    public class Firma  //klasa statyczna bo bedzie tylko jedna firma
+    
+    public class Firma  
     {
+
+        private DateTime WirtualnaData;// będe tego później potrzebował, i w firmie bede pisał ewentualnie rózne funkcje odnośnie czasu~Pabblo
+
+/*
+
         private List<Lotnisko> ListaLotnisk=new List<Lotnisko>();
         private List<TypSamolotu> ListaTypow=new List<TypSamolotu>();
         private List<Trasa> ListaTras=new List<Trasa>();
@@ -233,6 +238,7 @@ namespace Projekcik
 
             }
         }
+ */
     }
-    */
+   
 }

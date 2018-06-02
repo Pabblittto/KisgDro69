@@ -6,20 +6,15 @@ using System.Threading.Tasks;
 
 namespace Projekcik
 {
-    public class Bilet : Rezerwacja
+    /// <summary>
+    /// ta cała klasa będzie do usunięcia :/  serio mówie 
+    /// </summary>
+    public class Bilet : RezerwcjaBilet
     {
-        /// <summary>
-        /// ten konstruktor będzie jest nie używany, bilet to klasa, na którą bedzie się rzutować rezerwacje- 
-        /// jak koncepcja projektu się nie zmieni
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        public Bilet(string a, int b, int c,Boolean d,Klient e ):base(a,b,c,d,e )
-        {
 
+        public Bilet(string nrRezerwacji, int NumerMiejsca, int _cena,Boolean Vip,Klient KtoRezerwuje, DateTime Datastworzenia ,string _nrBiletu):base(nrRezerwacji,NumerMiejsca,_cena,Vip,KtoRezerwuje,Datastworzenia,true )
+        {
+            NrBiletu = _nrBiletu;
         }
 
 
@@ -27,7 +22,7 @@ namespace Projekcik
         private string NrBiletu;
         
         /// <summary>
-        /// Setter do numeru biletu,, będzie troche działał jak Konstruktor  
+        /// Setter do numeru biletu potrzebny jeżeli rzutujemy w dół i pole nr biletu siędodaje 
         /// </summary>
         /// <param name="numer"></param>
         public void SetNrBiletu(string numer)
