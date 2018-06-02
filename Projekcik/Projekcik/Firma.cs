@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Projekcik
 {
+
     /*
+      [Serializable]
     public class Firma  //klasa statyczna bo bedzie tylko jedna firma
     {
         private List<Lotnisko> ListaLotnisk=new List<Lotnisko>();

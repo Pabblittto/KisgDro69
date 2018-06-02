@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Projekcik
 {
+    [Serializable]
     public class Lot
     {
          private string IDLotu;

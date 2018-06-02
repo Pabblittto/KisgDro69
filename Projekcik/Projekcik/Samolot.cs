@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Projekcik
 {
+    [Serializable]
     public class Samolot
     {
         private string IDSamolotu;
@@ -18,7 +19,7 @@ namespace Projekcik
             CzyDostepny = true;
         }
 
-        public string GetIDSamolotu()
+        public string GetIDSamolotu()   
         {
             return IDSamolotu;
         }

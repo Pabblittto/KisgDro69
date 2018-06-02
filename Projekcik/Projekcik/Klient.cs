@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Projekcik
 {
+    [Serializable]
     public abstract class Klient
     {
         private string IDKlienta;
