@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Projekcik
 {
-    public class Lot
+    public class Lot : KlasaID
     {
-         private string IDLotu;
+        // private string IDLotu;
          private string IDSamolotu;// id konkretnego zamolotu, który obsługuje lot 
 
          private List<RezerwcjaBilet> ListaRezerwacji; // lista rezerwacji określa również liste/liczbe klientów lecących tym samolotem
@@ -19,13 +19,13 @@ namespace Projekcik
         private TimeSpan CzasLotu; //  ten czas jest liczony i wklepywany przez funkcje
         private DateTime DataGodzinaWylotu;
 
-        
+        private List<string> LNIDRezerwacjiBiletow;
 
 
         public Lot(string ID, Trasa _Droga,int RokWylot,int MiesWyl,int DzienWyl, int GodzWyl, int MinWyl)
         {
             ListaRezerwacji = new List<RezerwcjaBilet>();
-            IDLotu = ID;
+            SetID(ID);
             Droga = _Droga;
             DataGodzinaWylotu = new DateTime(RokWylot, MiesWyl, DzienWyl, GodzWyl, MinWyl,0);//ostatnia liczna to sekundy- nieistotna wartość w programie
             Pojazd = null;// to też pomaga stwierdzić czy istnieje samolot który jest zapisany do trasy
@@ -38,7 +38,7 @@ namespace Projekcik
         public Lot(Lot IstniejącyLot,TimeSpan OjakiCZasPrzesuniety, String _IDLotu)
         {
             ListaRezerwacji = new List<RezerwcjaBilet>();
-            IDLotu = _IDLotu;
+            SetID(_IDLotu);
             Droga = IstniejącyLot.GetDroga();
             DataGodzinaWylotu = IstniejącyLot.GetDataWylDT();
              DataGodzinaWylotu= DataGodzinaWylotu.Add(OjakiCZasPrzesuniety);
@@ -116,10 +116,6 @@ namespace Projekcik
                 throw new Wyjatek("Nie został dodany samolot obsłudujący ten lot, lub został on usunięty!!");                                                                         // dany lot żebby problemy się nie robiły
         }
 
-        public string GetIDLotu()
-        {
-            return IDLotu;
-        }
 
         public Trasa GetDroga()
         {
@@ -154,7 +150,7 @@ namespace Projekcik
             {
                 foreach (Samolot Obiekt in Pojazd.GetListaSamolotow())
                 {
-                    if (Obiekt.GetIDSamolotu() == IDSamolotu)
+                    if (Obiekt.GetIDWlasne() == IDSamolotu)
                         return Obiekt;
                 }
             }

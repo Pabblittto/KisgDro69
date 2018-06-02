@@ -12,14 +12,52 @@ namespace Projekcik
 
         private DateTime WirtualnaData;// będe tego później potrzebował, i w firmie bede pisał ewentualnie rózne funkcje odnośnie czasu~Pabblo
 
-/*
+        /// <summary>
+        /// NOOOO panowie rozjebaneeeee , to działa tak , w typie wpisujesz czemu chcesz przydzielić ID to działa z trzeba klasami : Samolot, Lot i Klient, w Lista danych 
+        /// Wpisujesz nazwe Listy danego typu czyli dla samolotu wpisujesz ListaSamolotow, a w LNIDdanych wpisujesz liste, która przechowuje id usunietych typów
+        /// </summary>
+        /// <returns></returns>
+        public string PrzydzielanieID<Typ>(List<Typ> ListaDanych, List<string> LNIDDanych) where Typ :KlasaID
+        {
+            if (LNIDDanych.Count() != 0)
+            {
+                string tmp = LNIDDanych[LNIDLotow.Count() - 1];
+                LNIDDanych.Remove(tmp);
+                return tmp;
+            }
+            else
+            {
+                if (ListaDanych.Count() != 0)
+                {
+                    
+                    string NumerekBezformatu = ListaDanych[ListaDanych.Count() - 1].GetIDWlasne();// pobiera ID lotu który jest naj wcześniej - numerek jest ten w formacie 5 znaków jeżeli liczba nie zapełnia wszystkich 5 znaków to sa dodawane zera na początku       
+                    
+                    NumerekBezformatu = NumerekBezformatu.TrimStart('0');// usuwa zera z przodu
+                    uint tmp = (uint)new System.ComponentModel.UInt32Converter().ConvertFromString("0x" + NumerekBezformatu);// zamienia stringa na uinta 
+                    tmp++;// zwiększa numerek przyszłego id
+                    NumerekBezformatu = tmp.ToString("X5");
+                    return NumerekBezformatu;
+                }
+                else
+                    return "00001";// jeżeli na liście lotów nie ma żadnego lotu to pierwszy lot ma ID równe 00001- jest to liczba w szesnastkowym formacie
+            }
+        }
 
-        private List<Lotnisko> ListaLotnisk=new List<Lotnisko>();
-        private List<TypSamolotu> ListaTypow=new List<TypSamolotu>();
-        private List<Trasa> ListaTras=new List<Trasa>();
-        private List<Lot> ListaLotow=new List<Lot>();
-        private List<Klient> ListaKlientow=new List<Klient>();
+        // LNID to skrót : Lista Nieuzywanych ID jeżeli powstaje jakiś obiekt danego typu, a później jest on usuwany to program nie mógł by wykożystać jego id, bo nowe id tworzone przez funkcje, która dodaje 1 do wcześniejszego id, to sprawia że funkca nie może tworzyć wcześniejszych id!!
+        
+        public List<string> LNIDLotow = new List<string>() ;
+        public List<string> LNIDKlientow= new List<string>() ;
+
+
+
+
+        public List<Lotnisko> ListaLotnisk=new List<Lotnisko>(); // zmienione na public żeby zrobić test
+        public List<TypSamolotu> ListaTypow=new List<TypSamolotu>();
+        public List<Trasa> ListaTras=new List<Trasa>();
+        public List<Lot> ListaLotow=new List<Lot>();
+        public List<Klient> ListaKlientow=new List<Klient>();
         //szybka notka jeszcze sprobuej ogarnac czy nie da sie jakos tych metod sprowadzic do takiej co by pobierala tylko parametry zeby nie bylo tego samego tysiac razy
+/*
         public Boolean DodajTyp(string Nazwa, int _Zasieg, int _Predkosc, int IlMiejsc, int IlMiejscVip)
         {
             if (ListaTypow.Count() != 0)
