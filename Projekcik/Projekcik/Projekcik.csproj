@@ -42,7 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bilet.cs" />
     <Compile Include="Firma.cs" />
     <Compile Include="KlasaID.cs" />
     <Compile Include="Klient.cs" />
