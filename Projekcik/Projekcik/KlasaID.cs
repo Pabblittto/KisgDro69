@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Projekcik
 {
-    public class KlasaID
+    public abstract class KlasaID
     {
        protected string IDObiektu;
 
