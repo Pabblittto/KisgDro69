@@ -14,7 +14,7 @@ namespace Projekcik
 
         /// <summary>
         /// NOOOO panowie rozjebaneeeee , to działa tak , w typie wpisujesz czemu chcesz przydzielić ID to działa z trzeba klasami : Samolot, Lot i Klient, w Lista danych 
-        /// Wpisujesz nazwe Listy danego typu czyli dla samolotu wpisujesz ListaSamolotow, a w LNIDdanych wpisujesz liste, która przechowuje id usunietych typów
+        /// Wpisujesz nazwe Listy danego typu czyli dla samolotu wpisujesz ListaSamolotow, a w LNIDdanych wpisujesz liste, która przechowuje id usunietych typów - to serio działa testowane
         /// </summary>
         /// <returns></returns>
         public string PrzydzielanieID<Typ>(List<Typ> ListaDanych, List<string> LNIDDanych) where Typ :KlasaID
@@ -44,11 +44,18 @@ namespace Projekcik
         }
 
         // LNID to skrót : Lista Nieuzywanych ID jeżeli powstaje jakiś obiekt danego typu, a później jest on usuwany to program nie mógł by wykożystać jego id, bo nowe id tworzone przez funkcje, która dodaje 1 do wcześniejszego id, to sprawia że funkca nie może tworzyć wcześniejszych id!!
-        
         public List<string> LNIDLotow = new List<string>() ;
         public List<string> LNIDKlientow= new List<string>() ;
 
-
+        /// <summary>
+        /// To specialna funkcja do dodawania do list, trzeba będzie z niej kożystać z powodu tego że funkcja PrzydzielanieId wymaga jakiegoś porządku na liście żeby dobrze działała
+        /// To tyczy się wyłącznie: List: Samolotów
+        /// </summary>
+        public void DodawanieDoListy<Typ>(List<Typ> ListaDanych, List<string> LNIDDanych, Typ DodawanyObiekt)// później to napisze 
+        {
+            //TO Później napisze ~Pabnlo
+        }
+            // MUSZE NAPISAC TEŻ FUNKCJE USUN Z LISTY ~Pabblo
 
 
         public List<Lotnisko> ListaLotnisk=new List<Lotnisko>(); // zmienione na public żeby zrobić test

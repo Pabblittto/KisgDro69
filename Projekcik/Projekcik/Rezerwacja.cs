@@ -13,8 +13,8 @@ namespace Projekcik
     {
         private Klient Pasazer;
 
-        private string NrRezerwacji;
-        private int NrMiesca;
+        private string NrRezerwacjiBiletu;
+        private uint NrMiesca;
         private int CenaBiletu;
         private Boolean BiletVIP;
         private Boolean CzyKupionyBilet;
@@ -22,11 +22,12 @@ namespace Projekcik
         private DateTime DataWygasniecia;
 
         // ostatni element w konstruktorze decyduje obiket stajie sie od razu biletem
-        public RezerwcjaBilet(string NrRezer,int NumerMiejs,int _Cena,Boolean Vip, Klient KtoRezerw,DateTime Datastworzenia,Boolean _CzyKupionyBilet )
+        public RezerwcjaBilet(string NrRezer,int _Cena,Boolean Vip, Klient KtoRezerw,DateTime Datastworzenia,Boolean _CzyKupionyBilet )
         {
+
             Pasazer = KtoRezerw;
-            NrRezerwacji = NrRezer;
-            NrMiesca = NumerMiejs;
+            NrRezerwacjiBiletu = NrRezer;
+            NrMiesca = (uint)new System.ComponentModel.UInt32Converter().ConvertFromString("0x" + NrRezer.Split('-')[1]);
             CenaBiletu = _Cena;
             BiletVIP = Vip;
             DataWygasniecia = Datastworzenia.Add(new TimeSpan(7, 0, 0, 0));// czas rezerwacji , rezerwacje można zrobić tylko na 7 dni                                                        // jeżeli data wygaśniećia bedzie się równać dacie w programie to rezerwacja jest usuwana z listy rezerwacji
@@ -36,7 +37,7 @@ namespace Projekcik
 
         public string GetNrRezerwacji()
         {
-            return NrRezerwacji;
+            return NrRezerwacjiBiletu;
         }
 
         public Boolean CzyVIP()
@@ -80,7 +81,10 @@ namespace Projekcik
                return false;
         }
 
-
+        public uint GetNRMiejsca()
+        {
+            return NrMiesca;
+        }
 
 
     }
