@@ -49,7 +49,26 @@ namespace Projekcik
 
         }
 
+        /// <summary>
+        /// Specialny konstruktor Lotu, zakłada powrót tego samego samolotu więc tworzony lot ma wszystko takie same prócz: IDLotu , daty wylotu, kolejności Lotnisk w trasie
+        /// </summary>
+        public Lot(Lot IstniejacyLOt,string _IDLotu,TimeSpan IloscCzasuDoStartuLiczonaOdMomentuLondowania)
+        {
+            this.LNIDRezerwacjiBiletow = new List<string>();
+            this.ListaRezerwacji = new List<RezerwcjaBilet>();
+            IstniejacyLOt.GetSamolot().ZmianaDostepu();// taki cheat żeby przez chwile samolt był dostępny 
+            this.SetPojazd(IstniejacyLOt.GetTypSamolotu(),IstniejacyLOt.GetSamolot().GetIDWlasne());// wywali błąd bo set pojazd zobaczy że samolot jest zajęty :/
+            IstniejacyLOt.GetSamolot().ZmianaDostepu();// taki cheat 
+            this.DataGodzinaWylotu = IstniejacyLOt.DataLądowaniaDateTime().Add(IloscCzasuDoStartuLiczonaOdMomentuLondowania);
+            this.CzasLotu = IstniejacyLOt.GetCzasLotu();
+            this.Droga = new Trasa(IstniejacyLOt.GetDroga());
 
+        }
+
+        public TypSamolotu GetTypSamolotu()
+        {
+            return Pojazd;
+        }
 
 
         /// <summary>
@@ -74,6 +93,11 @@ namespace Projekcik
                 return false;
         }
 
+
+        public TimeSpan GetCzasLotu()
+        {
+            return CzasLotu;
+        }
 
         public int GetIloscMiejscWolnychZwyklych()
         {
@@ -117,7 +141,7 @@ namespace Projekcik
                     return Pojazd.GetIloscMiejscVip();
             }
             else
-                throw new Wyjatek("Nie został dodany samolot obsłudujący ten lot, lub został on usunięty!!");                                                                         // dany lot żebby problemy się nie robiły
+                throw new Wyjatek("Nie został dodany samolot obsłudujący ten lot, lub został on usunięty!!");   
         }
 
 
@@ -164,11 +188,12 @@ namespace Projekcik
                                                                     // w catchu proponuje napisać krótką funkcję zmieniającą pole "Pojazd" na null!!!-Ważne
         }
 
+
         /// <summary>
-        /// DAta powrotu liczona na podstawie czasu lotu
+        /// DAta lądowania liczona na podstawie czasu lotu
         /// </summary>
         /// <returns></returns>
-        public String DataPowrotu() 
+        public String DataLądowaniaString() 
         {
             if (Pojazd != null)
             {
@@ -178,6 +203,19 @@ namespace Projekcik
             else
                 throw new Wyjatek("Nie został dodany samolot obsłudujący ten lot!!");// w cathu jakiś komunikat dla uzytkownika żeby dodał samolot-Wazne
         }
+
+
+        public DateTime DataLądowaniaDateTime()
+        {
+            if (Pojazd != null)
+            {
+                DateTime cont = DataGodzinaWylotu.Add(CzasLotu);
+                return cont;
+            }
+            else
+                throw new Wyjatek("Nie został dodany samolot obsłudujący ten lot!!");// w cathu jakiś komunikat dla uzytkownika żeby dodał samolot-Wazne
+        }
+
 
         /// <summary>
         /// Funkcja przydzialająca ID nowym rezerwacjom , robi to na podstawie ostatniej rezerwacji dodanej do listy lub bierze je z "kosza"
