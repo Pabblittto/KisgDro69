@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace Projekcik
 {
-
-    [Serializable]
     /// <summary>
     /// Trasa to obiekt przechowyjący dwa lotniska, jest to po prostu droga
     /// </summary>
+    [Serializable]
     public class Trasa
     {
         private Lotnisko Lotnisko1;

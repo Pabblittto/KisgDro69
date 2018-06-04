@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Projekcik
 {
+    [Serializable]
     /// <summary>
     /// Klasa która jednocześnie jest rezerwacją i biletem
     /// </summary>

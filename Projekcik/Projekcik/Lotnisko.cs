@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Projekcik
 {
-    [Serializable]
     /// <summary>
     /// Prosta klasa obiektu lotnisko , posiada tylko id, które jest jego nazwą
     /// </summary>
-    public class Lotnisko
+    [Serializable]
+   public class Lotnisko
     {
         private string IDLotniska;
 

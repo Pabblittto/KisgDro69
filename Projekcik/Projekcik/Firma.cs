@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Projekcik
 {
@@ -306,6 +308,7 @@ namespace Projekcik
             }
 
         }
+        */
         public void ZapisDoPliku()//generalnie zastosujemy serializacje zeby zapisywac calosc jeszcze doczytac musze czy to tak zadziala na jednym pliku ew jak to zrobic przy odczycie
         {
             try
@@ -331,15 +334,15 @@ namespace Projekcik
             {
                 BinaryFormatter bin = new BinaryFormatter();
 
-                ListaLotnisk = List<Lotniska> bin.Deserialize(strumien);
-                ListaTypow = List<Typ> bin.Deserialize(strumien);
-                ListaTras = List<Trasa> bin.Deserialize(strumien);
-                ListaLot = List<Lot> bin.Deserialize(strumien);
-                ListaKlientow = List<Klient> bin.Deserialize(strumien);
+                ListaLotnisk = (List<Lotnisko>) bin.Deserialize(strumien);
+                ListaTypow = (List<TypSamolotu>) bin.Deserialize(strumien);
+                ListaTras = (List<Trasa>) bin.Deserialize(strumien);
+                ListaLotow = (List<Lot>) bin.Deserialize(strumien);
+                ListaKlientow = (List<Klient>) bin.Deserialize(strumien);
 
             }
         }
- */
+ 
     }
    
 }

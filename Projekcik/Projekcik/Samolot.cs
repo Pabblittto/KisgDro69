@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Projekcik
 {
+    [Serializable]
     public class Samolot : KlasaID
     {
        // private string IDSamolotu;
