@@ -272,19 +272,23 @@ namespace Projekcik
         /// <param name="Obiekt"></param>
         /// <param name="CzyVIP"></param>
         /// <returns></returns>
-        public void RezerwujKupBilet(Klient Obiekt,Boolean CzyVIP, Boolean CzyToKupno, DateTime AktualnaData)
+        public void RezerwujKupBilet(Klient Obiekt, Boolean CzyVIP, Boolean CzyToKupno, DateTime AktualnaData)
         {
-            if((this.GetIloscMiejscWolnychZwyklych()!=0 && CzyVIP==false) ||(this.GetIloscMiejscWolnychVip()!=0 && CzyVIP==true))// funkcja sprawdza czy można zarezerwować miejsce
-                {  
-            RezerwcjaBilet NowyBilecikRezerwacja = new RezerwcjaBilet(PrzydzielanieIDRezerwacja(), 0, CzyVIP, Obiekt, AktualnaData, CzyToKupno);// te zero trzeba zamienic na funkcje liczącą cene biletu , na przykład na podstawie odległości
-            Obiekt.DodajBiletRezerwacje(NowyBilecikRezerwacja);
+            if(this.GetSamolot()!=null)
+            { 
+            if ((this.GetIloscMiejscWolnychZwyklych() != 0 && CzyVIP == false) || (this.GetIloscMiejscWolnychVip() != 0 && CzyVIP == true))// funkcja sprawdza czy można zarezerwować miejsce
+            {
+                RezerwcjaBilet NowyBilecikRezerwacja = new RezerwcjaBilet(PrzydzielanieIDRezerwacja(), 0, CzyVIP, Obiekt, AktualnaData, CzyToKupno);// te zero trzeba zamienic na funkcje liczącą cene biletu , na przykład na podstawie odległości
+                Obiekt.DodajBiletRezerwacje(NowyBilecikRezerwacja);
 
-            if (PorownajIDBiletow(NowyBilecikRezerwacja, ListaRezerwacji[ListaRezerwacji.Count() - 1]))// to sytuacja kiedy nowy obiekt ma większe id - jest dodawany na koncu
-                ListaRezerwacji.Add(NowyBilecikRezerwacja);
-            else
-                ListaRezerwacji.Insert(0, NowyBilecikRezerwacja);
-                }
+                if (PorownajIDBiletow(NowyBilecikRezerwacja, ListaRezerwacji[ListaRezerwacji.Count() - 1]))// to sytuacja kiedy nowy obiekt ma większe id - jest dodawany na koncu
+                    ListaRezerwacji.Add(NowyBilecikRezerwacja);
+                else
+                    ListaRezerwacji.Insert(0, NowyBilecikRezerwacja);
+            }
             throw new Wyjatek("Nie ma miejsca w samolocie");// wyjątek który wystrczy obsłużyć errorem na ekranie
+           }
+            throw new Wyjatek("Nie ma przydzielonego samolotu dla trasy");// wyjątek, którego nie trzeba raczej obsługiwać, to dla wiadomości że coś w logice nie działa
         }
 
         /// <summary>

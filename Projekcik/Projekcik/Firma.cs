@@ -87,6 +87,15 @@ namespace Projekcik
         }// trzeba to przetestować
 
         /// <summary>
+        /// Funkcja tworząca kolejne loty na najbliższy x czas , loty odbywają co y czasu
+        /// tnz. funkcja "Kopiuje" dany lot i tworzy jego przyszłe wersje (inne są ID , inny samolot)
+        /// </summary>
+        public void TworzenieLotowLatajacychCoJakisCzas()
+        {
+            //Ja to napisze , - albo będę sie starał
+        }
+
+        /// <summary>
         /// Funkcja dodająca do listy dwa obiekty Tras: Lotnisko1-Lotnisko2 oraz Lotnisko2-Lotnisko1
         /// </summary>
         /// <param name="Lotnisko1"></param>
