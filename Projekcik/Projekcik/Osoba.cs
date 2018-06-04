@@ -10,9 +10,9 @@ namespace Projekcik
     {
         private string Imie;
         private string Nazwisko;
-        public Osoba(string imie,string nazwisko,string ID)
+        public Osoba(string imie,string nazwisko,string ID) :base(ID)
         {
-            base(ID);
+            
             this.Imie = imie;
             this.Nazwisko = nazwisko;
         }

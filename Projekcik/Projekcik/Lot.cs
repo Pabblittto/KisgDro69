@@ -6,27 +6,27 @@ using System.Threading.Tasks;
 
 namespace Projekcik
 {
-    [Serializable]
-    public class Lot
+    public class Lot : KlasaID
     {
-         private string IDLotu;
+        // private string IDLotu;
          private string IDSamolotu;// id konkretnego zamolotu, który obsługuje lot 
 
-         private List<Rezerwacja> ListaRezerwacji; // lista rezerwacji określa również liste/liczbe klientów lecących tym samolotem
-       
+         private List<RezerwcjaBilet> ListaRezerwacji; // lista rezerwacji określa również liste/liczbe klientów lecących tym samolotem
+         private List<string> LNIDRezerwacjiBiletow;
 
         private Trasa Droga;
         private TypSamolotu Pojazd;// typ samolotu, ponieważ on przechowuje prekość, ładowność itd.
         private TimeSpan CzasLotu; //  ten czas jest liczony i wklepywany przez funkcje
         private DateTime DataGodzinaWylotu;
 
-        
+       
 
 
         public Lot(string ID, Trasa _Droga,int RokWylot,int MiesWyl,int DzienWyl, int GodzWyl, int MinWyl)
         {
-            ListaRezerwacji = new List<Rezerwacja>();
-            IDLotu = ID;
+            LNIDRezerwacjiBiletow = new List<string>();
+            ListaRezerwacji = new List<RezerwcjaBilet>();
+            SetID(ID);
             Droga = _Droga;
             DataGodzinaWylotu = new DateTime(RokWylot, MiesWyl, DzienWyl, GodzWyl, MinWyl,0);//ostatnia liczna to sekundy- nieistotna wartość w programie
             Pojazd = null;// to też pomaga stwierdzić czy istnieje samolot który jest zapisany do trasy
@@ -38,14 +38,36 @@ namespace Projekcik
         /// </summary>
         public Lot(Lot IstniejącyLot,TimeSpan OjakiCZasPrzesuniety, String _IDLotu)
         {
-            ListaRezerwacji = new List<Rezerwacja>();
-            IDLotu = _IDLotu;
+            LNIDRezerwacjiBiletow = new List<string>();
+            ListaRezerwacji = new List<RezerwcjaBilet>();
+            SetID(_IDLotu);
             Droga = IstniejącyLot.GetDroga();
             DataGodzinaWylotu = IstniejącyLot.GetDataWylDT();
              DataGodzinaWylotu= DataGodzinaWylotu.Add(OjakiCZasPrzesuniety);
             Pojazd = null;
             CzasLotu = new TimeSpan(0, 0, 0);
 
+        }
+
+        /// <summary>
+        /// Specialny konstruktor Lotu, zakłada powrót tego samego samolotu więc tworzony lot ma wszystko takie same prócz: IDLotu , daty wylotu, kolejności Lotnisk w trasie
+        /// </summary>
+        public Lot(Lot IstniejacyLOt,string _IDLotu,TimeSpan IloscCzasuDoStartuLiczonaOdMomentuLondowania)
+        {
+            this.LNIDRezerwacjiBiletow = new List<string>();
+            this.ListaRezerwacji = new List<RezerwcjaBilet>();
+            IstniejacyLOt.GetSamolot().ZmianaDostepu();// taki cheat żeby przez chwile samolt był dostępny 
+            this.SetPojazd(IstniejacyLOt.GetTypSamolotu(),IstniejacyLOt.GetSamolot().GetIDWlasne());// wywali błąd bo set pojazd zobaczy że samolot jest zajęty :/
+            IstniejacyLOt.GetSamolot().ZmianaDostepu();// taki cheat 
+            this.DataGodzinaWylotu = IstniejacyLOt.DataLądowaniaDateTime().Add(IloscCzasuDoStartuLiczonaOdMomentuLondowania);
+            this.CzasLotu = IstniejacyLOt.GetCzasLotu();
+            this.Droga = new Trasa(IstniejacyLOt.GetDroga());
+
+        }
+
+        public TypSamolotu GetTypSamolotu()
+        {
+            return Pojazd;
         }
 
 
@@ -55,7 +77,7 @@ namespace Projekcik
         ///  funkcja od razu liczy nowy czas przelotu danej trasy
         /// </summary>
         /// <returns></returns>
-        public Boolean SetPojazd(TypSamolotu TypPojazdu,string IDPojazdu)        //  nie jest w konstruktorze ponieważ zwraca booleana
+        public Boolean SetPojazd(TypSamolotu TypPojazdu,string IDPojazdu)//  nie jest w konstruktorze ponieważ zwraca booleana
         {
             if (TypPojazdu.GetZasieg() >= Droga.GetOdleglosc() && TypPojazdu.GetSAmolotOID(IDPojazdu).GetCzyDostepny()==true)
             {
@@ -72,6 +94,11 @@ namespace Projekcik
         }
 
 
+        public TimeSpan GetCzasLotu()
+        {
+            return CzasLotu;
+        }
+
         public int GetIloscMiejscWolnychZwyklych()
         {
             if (Pojazd != null)
@@ -79,7 +106,7 @@ namespace Projekcik
                 if (ListaRezerwacji.Count() != 0)
                 {
                     int liczba = 0;
-                    foreach (Rezerwacja Objekt in ListaRezerwacji)
+                    foreach (RezerwcjaBilet Objekt in ListaRezerwacji)
                     {
                         if (Objekt.CzyVIP() == false)
                             liczba++;
@@ -91,7 +118,7 @@ namespace Projekcik
                     return Pojazd.GetIloscMiejsc();
             }
             else
-                throw new Wyjatek("Nie został dodany samolot obsłudujący ten lot!!");// niech uzytkownik wypełni pole samolotu!! niech w ekstrymalnych przypadkach program usuwa                                                                           // dany lot żebby problemy się nie robiły
+                throw new Wyjatek("Nie został dodany samolot obsłudujący ten lot, lub został!!");// niech uzytkownik wypełni pole samolotu!! niech w ekstrymalnych przypadkach program usuwa                                                                           // dany lot żebby problemy się nie robiły
         }
 
 
@@ -102,7 +129,7 @@ namespace Projekcik
                 if (ListaRezerwacji.Count() != 0)
                 {
                     int liczba = 0;
-                    foreach (Rezerwacja Objekt in ListaRezerwacji)
+                    foreach (RezerwcjaBilet Objekt in ListaRezerwacji)
                     {
                         if (Objekt.CzyVIP() == true)
                             liczba++;
@@ -114,13 +141,9 @@ namespace Projekcik
                     return Pojazd.GetIloscMiejscVip();
             }
             else
-                throw new Wyjatek("Nie został dodany samolot obsłudujący ten lot!!");                                                                         // dany lot żebby problemy się nie robiły
+                throw new Wyjatek("Nie został dodany samolot obsłudujący ten lot, lub został on usunięty!!");   
         }
 
-        public string GetIDLotu()
-        {
-            return IDLotu;
-        }
 
         public Trasa GetDroga()
         {
@@ -155,16 +178,22 @@ namespace Projekcik
             {
                 foreach (Samolot Obiekt in Pojazd.GetListaSamolotow())
                 {
-                    if (Obiekt.GetIDSamolotu() == IDSamolotu)
+                    if (Obiekt.GetIDWlasne() == IDSamolotu)
                         return Obiekt;
                 }
             }
+            // to miejsce gdzie pojazd nie jest równy null , ale nie ma jego obiektu na liście
+            Pojazd = null;
             throw new Wyjatek("Nie ma Samolotu na liście typów !!");// bardzo specyficzny wyjątek , ktoś usuną samolot, który obsługiwał tą trasę co powinno być nie możliwe-
                                                                     // w catchu proponuje napisać krótką funkcję zmieniającą pole "Pojazd" na null!!!-Ważne
         }
 
 
-        public String DataPowrotu() 
+        /// <summary>
+        /// DAta lądowania liczona na podstawie czasu lotu
+        /// </summary>
+        /// <returns></returns>
+        public String DataLądowaniaString() 
         {
             if (Pojazd != null)
             {
@@ -175,14 +204,105 @@ namespace Projekcik
                 throw new Wyjatek("Nie został dodany samolot obsłudujący ten lot!!");// w cathu jakiś komunikat dla uzytkownika żeby dodał samolot-Wazne
         }
 
-        public Boolean Rezerwuj()
+
+        public DateTime DataLądowaniaDateTime()
         {
-
-
-
+            if (Pojazd != null)
+            {
+                DateTime cont = DataGodzinaWylotu.Add(CzasLotu);
+                return cont;
+            }
+            else
+                throw new Wyjatek("Nie został dodany samolot obsłudujący ten lot!!");// w cathu jakiś komunikat dla uzytkownika żeby dodał samolot-Wazne
         }
 
 
+        /// <summary>
+        /// Funkcja przydzialająca ID nowym rezerwacjom , robi to na podstawie ostatniej rezerwacji dodanej do listy lub bierze je z "kosza"
+        /// </summary>
+        /// <returns></returns>
+        public string PrzydzielanieIDRezerwacja()
+        {
+            if(LNIDRezerwacjiBiletow.Count()!=0)
+            {
+                string tmp = LNIDRezerwacjiBiletow[LNIDRezerwacjiBiletow.Count() - 1];
+                LNIDRezerwacjiBiletow.Remove(tmp);
+                return tmp;
+            }
+            else
+            {
+                if (ListaRezerwacji.Count()!=0)
+                {
+                    string NumerekbezFormatu = ListaRezerwacji[ListaRezerwacji.Count() - 1].GetNrRezerwacji();
+                    NumerekbezFormatu = NumerekbezFormatu.Split('-')[1];
+                    uint tmp = (uint)new System.ComponentModel.UInt32Converter().ConvertFromString("0x" + NumerekbezFormatu);
+                    tmp++;
+                    NumerekbezFormatu = tmp.ToString("X3");
+                    return IDObiektu + "-" + NumerekbezFormatu;
+                }
+                else
+                    return IDObiektu +"-"+"001";
+
+            }
+
+        }
+
+        /// <summary>
+        /// Funkcja potrzebna w sytuacji, kiedy Id jest brane z listy usuniętych obiektów , ta funkcja sprawdza czy Taka sytuacja miała miejsce
+        /// Zwraca true jeżeli id pierwszego biletu jest większa, zwraca false w przeciwnym wypadku
+        /// </summary>
+        /// <returns></returns>
+        public Boolean PorownajIDBiletow(RezerwcjaBilet Bilet1,RezerwcjaBilet Bilet2)
+        {
+            if (Bilet1.GetNRMiejsca() > Bilet2.GetNRMiejsca())
+                return true;
+
+            if (Bilet1.GetNRMiejsca() < Bilet2.GetNRMiejsca())
+                return false;
+
+            throw new Wyjatek("Bardzo poważny problem , dwa bilety mają ten sam numer miejsca co nie powinno mić miejsca!");// poważny błąd, raczej nie trzeba go obsługiwac , napisany po to żeby 
+                                                                                                                            // zawiadomic że wystąpił błąd logiczny i trzeba popatrzeć w kodzik- możliwe że jakieś 
+                                                                                                                            //id z kosza zostało dane na koniec listy i tworzą się kopie id które juz jest na liści
+        }
+
+
+        /// <summary>
+        /// Funkcja dodająca rezerwacje na dany lot dla danej osoby, CyToKupno określa czy klient rezerwuje czy kupuje od razu bilet
+        /// </summary>
+        /// <param name="Obiekt"></param>
+        /// <param name="CzyVIP"></param>
+        /// <returns></returns>
+        public void RezerwujKupBilet(Klient Obiekt, Boolean CzyVIP, Boolean CzyToKupno, DateTime AktualnaData)
+        {
+            if(this.GetSamolot()!=null)
+            { 
+            if ((this.GetIloscMiejscWolnychZwyklych() != 0 && CzyVIP == false) || (this.GetIloscMiejscWolnychVip() != 0 && CzyVIP == true))// funkcja sprawdza czy można zarezerwować miejsce
+            {
+                RezerwcjaBilet NowyBilecikRezerwacja = new RezerwcjaBilet(PrzydzielanieIDRezerwacja(), 0, CzyVIP, Obiekt, AktualnaData, CzyToKupno);// te zero trzeba zamienic na funkcje liczącą cene biletu , na przykład na podstawie odległości
+                Obiekt.DodajBiletRezerwacje(NowyBilecikRezerwacja);
+
+                if (PorownajIDBiletow(NowyBilecikRezerwacja, ListaRezerwacji[ListaRezerwacji.Count() - 1]))// to sytuacja kiedy nowy obiekt ma większe id - jest dodawany na koncu
+                    ListaRezerwacji.Add(NowyBilecikRezerwacja);
+                else
+                    ListaRezerwacji.Insert(0, NowyBilecikRezerwacja);
+            }
+            throw new Wyjatek("Nie ma miejsca w samolocie");// wyjątek który wystrczy obsłużyć errorem na ekranie
+           }
+            throw new Wyjatek("Nie ma przydzielonego samolotu dla trasy");// wyjątek, którego nie trzeba raczej obsługiwać, to dla wiadomości że coś w logice nie działa
+        }
+
+        /// <summary>
+        ///  Funkcja usuwająca rezerwacje i bilety- usuwa z listy w kliencie i z listy w Locie
+        ///  Nie ma żadanego boola czy zwracania wyjątków , więc z góry zakładamy że biletdousunięcia istnieje tak samo jak Klient
+        /// </summary>
+        /// <param name="Objekt"></param>
+        /// <param name="Biletdousuniecia"></param>
+        public void AnulujRezerwacje(Klient Objekt, RezerwcjaBilet Biletdousuniecia)
+        {     
+            LNIDRezerwacjiBiletow.Add(Biletdousuniecia.GetNrRezerwacji());// numer biletu jest wsadzany do kosza, z którego później będzie brane 
+            ListaRezerwacji.Remove(Biletdousuniecia);
+            Objekt.UsunBiletRezerwacje(Biletdousuniecia);
+        }
 
     }
 }

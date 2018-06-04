@@ -16,10 +16,14 @@ namespace Projekcik
         private int IloscMiejsc;
         private int IloscMiejscVIP;
 
-        private List<Samolot> ListaSamolotow; 
+        private List<Samolot> ListaSamolotow;
+        private List<string> LNIDSamolotow;
+
+
 
         public TypSamolotu(string Nazwa,int _Zasieg, int _Predkosc, int IlMiejsc, int IlMiejscVip)
         {
+            LNIDSamolotow = new List<string>();
             NazwaModelu = Nazwa;
             Zasieg = _Zasieg;
             Predkosc = _Predkosc;
@@ -57,6 +61,10 @@ namespace Projekcik
             return ListaSamolotow;
         }
 
+        public List<string> GetLNIDSamolotow()
+        {
+            return LNIDSamolotow;
+        }
         /// <summary>
         /// Funkcja dodajaca sammolot zwraca false jeżeli samolot z takim samym id znajduje sie na liście 
         /// w przeciwnym wypadku zwraca true
@@ -69,7 +77,7 @@ namespace Projekcik
             {
                 foreach (Samolot Obiekt in ListaSamolotow)
                 {
-                    if (Obiekt.GetIDSamolotu() == IDSamolotu)
+                    if (Obiekt.GetIDWlasne() == IDSamolotu)
                         return false;
                 }
             }
@@ -90,7 +98,7 @@ namespace Projekcik
             {
                 for (int i = 0; i < ListaSamolotow.Count(); i++)
                 {
-                    if (ListaSamolotow[i].GetIDSamolotu() == IDSamolotu)
+                    if (ListaSamolotow[i].GetIDWlasne() == IDSamolotu)
                     {
                         ListaSamolotow.Remove(ListaSamolotow[i]);
 
@@ -112,7 +120,7 @@ namespace Projekcik
         {
             foreach (Samolot Obiekt in ListaSamolotow)
             {
-                if (Obiekt.GetIDSamolotu() == IDszukanegoSamolotu)
+                if (Obiekt.GetIDWlasne() == IDszukanegoSamolotu)
                     return Obiekt;
             }
             throw new Wyjatek("Nie ma takiego Samolotu o podanym ID na liście!! ");// niech użytkownik wpisze te ID jeszcze raz, jeżeli ma możliwość wgl

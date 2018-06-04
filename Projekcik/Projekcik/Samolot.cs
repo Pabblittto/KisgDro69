@@ -6,23 +6,19 @@ using System.Threading.Tasks;
 
 namespace Projekcik
 {
-    [Serializable]
-    public class Samolot
+    public class Samolot : KlasaID
     {
-        private string IDSamolotu;
+       // private string IDSamolotu;
 
         private Boolean CzyDostepny;
 
         public Samolot(String ID)
         {
-            IDSamolotu = ID;
+            SetID(ID);
             CzyDostepny = true;
         }
 
-        public string GetIDSamolotu()   
-        {
-            return IDSamolotu;
-        }
+
 
         public Boolean GetCzyDostepny()
         {

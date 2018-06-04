@@ -6,24 +6,21 @@ using System.Threading.Tasks;
 
 namespace Projekcik
 {
-    [Serializable]
-    public abstract class Klient
+    public abstract class Klient : KlasaID
     {
-        private string IDKlienta;
-        private List<Bilet> ListaBiletow;
+
+        private List<RezerwcjaBilet> ListaBiletowRezerwacji;// lista biletów i rezerwacji
 
         public Klient(string ID)
             {
-            IDKlienta=ID;
-            }
-        public string GetIDKlienta()
-            {
-            return IDKlienta;
+            ListaBiletowRezerwacji = new List<RezerwcjaBilet>();
+            SetID(ID);
             }
 
-        public List<Bilet> GetListaBiletow()
+
+        public List<RezerwcjaBilet> GetListaBiletowRezerwacji()
         {
-            return ListaBiletow;
+            return ListaBiletowRezerwacji;
         }
 
         /// <summary>
@@ -31,18 +28,18 @@ namespace Projekcik
         /// nie wiem czy się przyda ale tak na wszelki wypadek już jest XD
         /// </summary>
         /// <returns></returns>
-        public Boolean DodajBilet(Bilet DodawanyBilet) 
+        public Boolean DodajBiletRezerwacje(RezerwcjaBilet DodawanyBilet) 
         {
-            if(ListaBiletow.Count() !=0)
+            if(ListaBiletowRezerwacji.Count() !=0)
             {
-                foreach (Bilet Obiekt in ListaBiletow)
+                foreach (RezerwcjaBilet Obiekt in ListaBiletowRezerwacji)// to prawdopodobnie nie jest potrzebne , jak będziemy robili to w WPFie to nie będzie sytuacji gdzie dodajemy ten sam bilet
                 {
                     if (Obiekt ==DodawanyBilet)
                         return false;
 
                 }
             }
-            ListaBiletow.Add(DodawanyBilet);
+            ListaBiletowRezerwacji.Add(DodawanyBilet);
             return true;
         }
 
@@ -52,15 +49,15 @@ namespace Projekcik
         /// </summary>
         /// <param name="UsuwanyBilet"></param>
         /// <returns></returns>
-        public Boolean UsunBilet(Bilet UsuwanyBilet)
+        public Boolean UsunBiletRezerwacje(RezerwcjaBilet UsuwanyBilet)
         {
-            if (ListaBiletow.Count() != 0)
+            if (ListaBiletowRezerwacji.Count() != 0)
             {
-                foreach (Bilet Obiekt in ListaBiletow)
+                foreach (RezerwcjaBilet Obiekt in ListaBiletowRezerwacji)
                 {
                     if (Obiekt == UsuwanyBilet)
                     {
-                        ListaBiletow.Remove(UsuwanyBilet);
+                        ListaBiletowRezerwacji.Remove(UsuwanyBilet);
                         return true;
                     }             
                 }
