@@ -75,6 +75,7 @@ namespace Projekcik
             else
                 ListaDanych.Insert(0, DodawanyObiekt);
         }// trzeba to przetestować
+
         /// <summary>
         ///  Funkcja usuwająca z głównej listy dla klas: Samolot , Lot , Klient
         /// </summary>
@@ -89,12 +90,24 @@ namespace Projekcik
         }// trzeba to przetestować
 
         /// <summary>
-        /// Funkcja tworząca kolejne loty na najbliższy x czas , loty odbywają co y czasu
-        /// tnz. funkcja "Kopiuje" dany lot i tworzy jego przyszłe wersje (inne są ID , inny samolot)
+        ///Funkcja sprawdza czy nie trzeba dorobić lotów cylklicznych 
         /// </summary>
-        public void TworzenieLotowLatajacychCoJakisCzas()
+        public void AktualizacjaLotowCyklicznych()// fukcja jeszcze nie testowana
         {
-            //Ja to napisze , - albo będę sie starał
+            foreach (PlanLotu objekt in ListaPlanowLotu)
+            {
+                if (objekt.CzyTrzebaStworzyc(this.WirtualnaData))
+                {
+                    List<Lot> tmp = objekt.StworzLotyCykliczne(this.WirtualnaData);
+
+                    foreach (Lot Polaczenie in tmp)
+                    {
+                        Polaczenie.SetID(PrzydzielanieID<Lot>(ListaLotow, LNIDLotow));// ustawienie ID ponieważ klasa Plan lotu tworzy Loty bez odpowiedniego ID
+                                                                                      // trzeba tu napisać linijki do dodawania konkretnych samolotow do poszczególnych lotów, chyba że zrobimy to tak że tuż tuż przed lotem samolot jest dodawany!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                        DodawanieDoListy<Lot>(ListaLotow, Polaczenie);
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -115,7 +128,7 @@ namespace Projekcik
         public List<string> LNIDLotow = new List<string>();
         public List<string> LNIDKlientow = new List<string>();
 
-
+        public List<PlanLotu> ListaPlanowLotu = new List<PlanLotu>();
         public List<Lotnisko> ListaLotnisk=new List<Lotnisko>(); // zmienione na public żeby zrobić test
         public List<TypSamolotu> ListaTypow=new List<TypSamolotu>();
         public List<Trasa> ListaTras=new List<Trasa>();

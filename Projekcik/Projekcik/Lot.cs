@@ -20,10 +20,16 @@ namespace Projekcik
         private TimeSpan CzasLotu; //  ten czas jest liczony i wklepywany przez funkcje
         private DateTime DataGodzinaWylotu;
 
-       
+        public Boolean CzyMaWracac;// zmienna określająca czy ma wrocić, koncepcja lotu polega na tym że leci do miejsca docelowego , a później wraca, tworzy to dwa połączenia , można w sumie wywalić i trzeba określać loty w dwie strony oddzielnie
+        ~Lot(){
+            this.GetSamolot().ZmianaDostepu();// kiedu Lot jest usuwany samolot jest zwalniany
+        }
 
 
-        public Lot(string ID, Trasa _Droga,int RokWylot,int MiesWyl,int DzienWyl, int GodzWyl, int MinWyl)
+        /// <summary>
+        /// Podstawowy konstruktor do lotu
+        /// </summary>
+        public Lot(string ID, Trasa _Droga,int RokWylot,int MiesWyl,int DzienWyl, int GodzWyl, int MinWyl,Boolean _CZyMawracac )
         {
             LNIDRezerwacjiBiletow = new List<string>();
             ListaRezerwacji = new List<RezerwcjaBilet>();
@@ -32,10 +38,11 @@ namespace Projekcik
             DataGodzinaWylotu = new DateTime(RokWylot, MiesWyl, DzienWyl, GodzWyl, MinWyl,0);//ostatnia liczna to sekundy- nieistotna wartość w programie
             Pojazd = null;// to też pomaga stwierdzić czy istnieje samolot który jest zapisany do trasy
             CzasLotu = new TimeSpan(0, 0, 0);//dzięki temu wiemy że na początku nie ma konkretnego samolotu który obsługuje ta trase
+            CzyMaWracac = _CZyMawracac;
 
         }
         /// <summary>
-        /// konstruktor kopiujący, jeżeli chcemy zrobić taki sam lot przesunięty w czasie o Jakiś przedział czasu(trzeba iwedzieć jak Tworzyć TimeSpan)
+        /// konstruktor kopiujący, jeżeli chcemy zrobić taki sam lot przesunięty w czasie o Jakiś przedział czasu
         /// </summary>
         public Lot(Lot IstniejącyLot,TimeSpan OjakiCZasPrzesuniety, String _IDLotu)
         {
@@ -49,22 +56,22 @@ namespace Projekcik
             CzasLotu = new TimeSpan(0, 0, 0);
 
         }
-
         /// <summary>
-        /// Specialny konstruktor Lotu, zakłada powrót tego samego samolotu więc tworzony lot ma wszystko takie same prócz: IDLotu , daty wylotu, kolejności Lotnisk w trasie
+        /// Specialny konstruktor Lotu, zakłada powrót tego samego samolotu więc tworzony lot ma wszystko takie same prócz: IDLotu , daty wylotu, kolejności Lotnisk w trasie, po tym wywołaniu stary lot powinien zostac usunięty
         /// </summary>
         public Lot(Lot IstniejacyLOt,string _IDLotu,TimeSpan IloscCzasuDoStartuLiczonaOdMomentuLondowania)
         {
             this.LNIDRezerwacjiBiletow = new List<string>();
             this.ListaRezerwacji = new List<RezerwcjaBilet>();
-            IstniejacyLOt.GetSamolot().ZmianaDostepu();// taki cheat żeby przez chwile samolt był dostępny 
-            this.SetPojazd(IstniejacyLOt.GetTypSamolotu(),IstniejacyLOt.GetSamolot().GetIDWlasne());// wywali błąd bo set pojazd zobaczy że samolot jest zajęty :/
+            IstniejacyLOt.GetSamolot().ZmianaDostepu();// taki cheat żeby przez chwile samolt był dostępny ten cheat się komplikuje wiestety , lepiej nie ruszać
+            this.SetPojazd(IstniejacyLOt.GetTypSamolotu(),IstniejacyLOt.GetSamolot().GetIDWlasne());
             IstniejacyLOt.GetSamolot().ZmianaDostepu();// taki cheat 
             this.DataGodzinaWylotu = IstniejacyLOt.DataLądowaniaDateTime().Add(IloscCzasuDoStartuLiczonaOdMomentuLondowania);
             this.CzasLotu = IstniejacyLOt.GetCzasLotu();
             this.Droga = new Trasa(IstniejacyLOt.GetDroga());
 
         }
+
 
         public TypSamolotu GetTypSamolotu()
         {
@@ -88,6 +95,7 @@ namespace Projekcik
                 czas = Math.Round(czas, 2);
                 double min = (czas % 1) * 60;// minuty w formiacie 0,xx więc trzeba pomnożyć razy 60
                 CzasLotu = new TimeSpan((int)czas,(int)min,0);// zero na końcu- to sekundy nieistotne w programie
+                this.GetSamolot().ZmianaDostepu();
                 return true;
             }
             else
@@ -191,7 +199,7 @@ namespace Projekcik
 
 
         /// <summary>
-        /// DAta lądowania liczona na podstawie czasu lotu
+        /// DAta lądowania liczona na podstawie czasu lotu podawana w Stringu
         /// </summary>
         /// <returns></returns>
         public String DataLądowaniaString() 
@@ -205,7 +213,10 @@ namespace Projekcik
                 throw new Wyjatek("Nie został dodany samolot obsłudujący ten lot!!");// w cathu jakiś komunikat dla uzytkownika żeby dodał samolot-Wazne
         }
 
-
+        /// <summary>
+        /// Data Lądowania podawana w Date time
+        /// </summary>
+        /// <returns></returns>
         public DateTime DataLądowaniaDateTime()
         {
             if (Pojazd != null)

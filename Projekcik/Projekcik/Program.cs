@@ -24,9 +24,9 @@ namespace Projekcik
             Trasa trasa = new Trasa(lotnisko1,Lotnisko2,230);
             // trasy - działa
 
-            Lot nowylot1 = new Lot(TestFunkcji.PrzydzielanieID<Lot>(TestFunkcji.ListaLotow, TestFunkcji.LNIDLotow),trasa,2000,9,21,8,3);
+            Lot nowylot1 = new Lot(TestFunkcji.PrzydzielanieID<Lot>(TestFunkcji.ListaLotow, TestFunkcji.LNIDLotow),trasa,2000,9,21,8,3,false);
             TestFunkcji.ListaLotow.Add(nowylot1);
-            Lot nowylot2 = new Lot(TestFunkcji.PrzydzielanieID<Lot>(TestFunkcji.ListaLotow, TestFunkcji.LNIDLotow), trasa, 2030, 9, 21, 8, 3);
+            Lot nowylot2 = new Lot(TestFunkcji.PrzydzielanieID<Lot>(TestFunkcji.ListaLotow, TestFunkcji.LNIDLotow), trasa, 2030, 9, 21, 8, 3,false);
             TestFunkcji.ListaLotow.Add(nowylot2);
             // loty - działa
 

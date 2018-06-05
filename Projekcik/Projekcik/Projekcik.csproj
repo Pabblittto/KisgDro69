@@ -48,6 +48,7 @@
     <Compile Include="Lot.cs" />
     <Compile Include="Lotnisko.cs" />
     <Compile Include="Osoba.cs" />
+    <Compile Include="PlanLotu.cs" />
     <Compile Include="Posrednik.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
