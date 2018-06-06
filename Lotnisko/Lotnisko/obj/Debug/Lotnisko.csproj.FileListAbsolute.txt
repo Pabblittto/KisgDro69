@@ -1,0 +1,7 @@
+C:\Users\Hubert\Desktop\Lotnisko\Lotnisko\Lotnisko\bin\Debug\Lotnisko.exe.config
+C:\Users\Hubert\Desktop\Lotnisko\Lotnisko\Lotnisko\bin\Debug\Lotnisko.exe
+C:\Users\Hubert\Desktop\Lotnisko\Lotnisko\Lotnisko\bin\Debug\Lotnisko.pdb
+C:\Users\Hubert\Desktop\Lotnisko\Lotnisko\Lotnisko\obj\Debug\Lotnisko.csprojResolveAssemblyReference.cache
+C:\Users\Hubert\Desktop\Lotnisko\Lotnisko\Lotnisko\obj\Debug\Lotnisko.csproj.CoreCompileInputs.cache
+C:\Users\Hubert\Desktop\Lotnisko\Lotnisko\Lotnisko\obj\Debug\Lotnisko.exe
+C:\Users\Hubert\Desktop\Lotnisko\Lotnisko\Lotnisko\obj\Debug\Lotnisko.pdb
