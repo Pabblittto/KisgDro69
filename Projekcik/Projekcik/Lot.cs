@@ -21,10 +21,10 @@ namespace Projekcik
         private DateTime DataGodzinaWylotu;
 
         public Boolean CzyMaWracac;// zmienna określająca czy ma wrocić, koncepcja lotu polega na tym że leci do miejsca docelowego , a później wraca, tworzy to dwa połączenia , można w sumie wywalić i trzeba określać loty w dwie strony oddzielnie
-        ~Lot(){
+      /*  ~Lot(){
             this.GetSamolot().ZmianaDostepu();// kiedu Lot jest usuwany samolot jest zwalniany
         }
-
+        */
 
         /// <summary>
         /// Podstawowy konstruktor do lotu

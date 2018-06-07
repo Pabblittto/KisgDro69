@@ -13,8 +13,6 @@ namespace Projekcik
         private DateTime CZasBazowy;// Czas przechowuje date ostatniego lotu który stworzył 
         private TimeSpan CoIleLata;// co ile lata dany lot , najlepiej okrągłe wartości
         private TimeSpan NaJakiPrzedzialczasu;// może tworzyć automatycznie loty na najbliższy tydzien na przykład- zawsze na najbliższy tydzień jest samolot
-
-
         private Trasa Polaczenie;
         private TypSamolotu RodzajSamolotu;
 

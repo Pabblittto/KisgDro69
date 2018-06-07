@@ -334,6 +334,7 @@ namespace Projekcik
                     bin.Serialize(strumien, ListaTras);
                     bin.Serialize(strumien, ListaLotow);
                     bin.Serialize(strumien, ListaKlientow);
+                    bin.Serialize(strumien, ListaTras);
                 }
             }
             catch (IOException)
@@ -352,6 +353,7 @@ namespace Projekcik
                 ListaTras = (List<Trasa>) bin.Deserialize(strumien);
                 ListaLotow = (List<Lot>) bin.Deserialize(strumien);
                 ListaKlientow = (List<Klient>) bin.Deserialize(strumien);
+                ListaTras = (List<Trasa>) bin.Deserialize(strumien);
 
             }
         }
