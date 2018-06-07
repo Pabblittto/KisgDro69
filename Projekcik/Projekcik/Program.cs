@@ -34,6 +34,7 @@ namespace Projekcik
             nowytyp.DodajSamolot(TestFunkcji.PrzydzielanieID<Samolot>(nowytyp.GetListaSamolotow(), nowytyp.GetLNIDSamolotow()));
             nowytyp.DodajSamolot(TestFunkcji.PrzydzielanieID<Samolot>(nowytyp.GetListaSamolotow(), nowytyp.GetLNIDSamolotow()));// tą jedna linijką tworzy sie nowy samolot, dodaje do listy, i ma indywidualne id
 
+            TestFunkcji.ZapisDoPliku();
             Console.ReadLine();
 
 
