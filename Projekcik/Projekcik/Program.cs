@@ -10,8 +10,9 @@ namespace Projekcik
     {
         static void Main(string[] args)
         {
+
             Firma TestFunkcji = new Firma();
-            /*
+            
             Osoba osoba1 = new Osoba("PAwd", "dasd", TestFunkcji.PrzydzielanieID<Klient>(TestFunkcji.ListaKlientow,TestFunkcji.LNIDKlientow));
             TestFunkcji.ListaKlientow.Add(osoba1);
 
@@ -38,8 +39,8 @@ namespace Projekcik
            
     
 
-           TestFunkcji.ZapisDoPliku();
-         */
+           
+        TestFunkcji.ZapisDoPliku();
             TestFunkcji.OdczytZPliku();
             foreach (Trasa X in TestFunkcji.ListaTras)
                 {
